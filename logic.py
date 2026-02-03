@@ -13,7 +13,7 @@ class CalculatorLogic:
         pass
 
     """
-    Basic Operations
+    Addition, subtraction, multiplication and division functions
     """
     def add(self, a, b):
         return a + b
@@ -30,13 +30,20 @@ class CalculatorLogic:
     """
     Trigonometric functions
     """
-    #Calculators for educational purposes typically accept angles, but built-in math functions require radians as input
-    def sin_deg(self, angle):
+    def sin_from_rad(self, angle):
+        return math.sin(angle)
+    def cos_from_rad(self, angle):
+        return math.cos(angle)
+    def tan_from_rad(self, angle):
+        return math.tan(angle)
+    # The built-in math functions require radians as input
+    def sin_from_deg(self, angle):
         return math.sin(math.radians(angle))
-    def cos_deg(self, angle):
+    def cos_from_deg(self, angle):
         return math.cos(math.radians(angle))
-    def tan_deg(self, angle):
+    def tan_from_deg(self, angle):
         return math.tan(math.radians(angle))
+
 
     """
     Inverse trigonometric functions (returns angles)
@@ -49,7 +56,7 @@ class CalculatorLogic:
         return math.degrees(math.atan(value))
 
     """
-    Exponentiation and square roots
+    Exponentiation including the square and the square roots functions
     """
     def square(self, a):
         return a ** 2
@@ -58,3 +65,30 @@ class CalculatorLogic:
         if a < 0:
             raise ValueError("Invalid Input")
         return math.sqrt(a)
+
+    """
+    Factorial function
+    """
+    def factorial(self, a):
+        if a < 0:
+            raise ValueError("Invalid Input")
+        return math.factorial(int(a))
+
+    """
+    Logarithmic functions
+    """
+    def logarithm(self,a,base):
+        if a < 0 or base < 0:
+            raise ValueError("Invalid Input")
+        return math.log(a, base)
+
+    def natural_logarithm(self,a):
+        if a < 0:
+            raise ValueError("Invalid Input")
+        return math.log(a,math.e)
+
+    """
+    Percent function
+    """
+    def percent(self,a):
+        return 100 * a / 100
