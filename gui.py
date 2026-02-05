@@ -1,24 +1,26 @@
 """
 Docstring for GUI
 Author: Andrew Berlett
-Date: Feburary 3rd, 2026
+Date: February 3rd, 2026
 """
 import tkinter as tk
 from tkinter import ttk
 from logic import CalculatorLogic
+import math
 
 class AdvancedCalculator:
     def __init__(self, root):
         self.root = root
         self.root.title("Python Scientific Calc")
-        self.root.geometry("400x600")
+        self.root.geometry("400x700")
         self.logic = CalculatorLogic()
         # This variable stores the current text in the display
         self.display_var = tk.StringVar(value="0")
         self.setup_styles()
         self.create_widgets()
 
-    def setup_styles(self):
+    @staticmethod
+    def setup_styles():
         style = ttk.Style()
         style.theme_use('clam')
         
@@ -45,13 +47,14 @@ class AdvancedCalculator:
         buttons = [
             ('sin', 0, 0), ('cos', 0, 1), ('tan', 0, 2), ('log', 0, 3),
             ('asin', 1, 0), ('acos', 1, 1), ('atan', 1, 2), ('ln', 1, 3),
-            ('x²', 2, 0), ('√', 2, 1), ('x!', 2, 2), ('%', 2, 3),
-            ('7', 3, 0), ('8', 3, 1), ('9', 3, 2), ('/', 3, 3, "Op.TButton"),
-            ('4', 4, 0), ('5', 4, 1), ('6', 4, 2), ('*', 4, 3, "Op.TButton"),
+            ('x²', 2, 0), ('√', 2, 1), ('x!', 2, 2), ('^', 2, 3),
+            ('7', 3, 0), ('8', 3, 1), ('9', 3, 2), ('%', 3, 3),
+            ('4', 4, 0), ('5', 4, 1), ('6', 4, 2), ('+', 4, 3, "Op.TButton"),
             ('1', 5, 0), ('2', 5, 1), ('3', 5, 2), ('-', 5, 3, "Op.TButton"),
-            ('0', 6, 0), ('.', 6, 1), ('=', 6, 2, "Op.TButton"), ('+', 6, 3, "Op.TButton"),
-            ('CLR', 7, 0, "Op.TButton"), ('(', 7, 1), (')', 7, 2), (',', 7, 3)
-        ]
+            ('π', 6, 0), ('e', 6, 1), ('0', 6, 2), ('*', 6, 3, "Op.TButton"),
+            ('CLR', 7, 0, "Op.TButton"), ('DEL', 7, 1, "Op.TButton"), ('=', 7, 2, "Op.TButton"), ('/', 7, 3, "Op.TButton"),
+            ('(', 8, 0), (')', 8, 1), (',', 8, 2,), ('.', 8, 3)
+            ]
 
         grid_frame = ttk.Frame(container)
         grid_frame.pack(fill="both", expand=True, padx=5, pady=5)
@@ -66,13 +69,18 @@ class AdvancedCalculator:
             )
 
         for i in range(4): grid_frame.columnconfigure(i, weight=1)
-        for i in range(8): grid_frame.rowconfigure(i, weight=1)
+        for i in range(9): grid_frame.rowconfigure(i, weight=1)
 
     def handle_click(self, char):
         curr = self.display_var.get()
         
         if char == "CLR":
             self.display_var.set("0")
+        elif char == "DEL":  #Deletion logic
+            if len(curr) > 1:
+                self.display_var.set(curr[:-1])
+            else:
+                self.display_var.set("0")
         elif char == "=":
             self.calculate_result()
         elif char == "x²":
@@ -85,6 +93,14 @@ class AdvancedCalculator:
             self.update_display("natural_logarithm(")
         elif char == "log":
             self.update_display("logarithm(") # Note: needs comma for base
+        elif char == "%":
+            self.update_display("percent(")
+        elif char == "π":
+            self.update_display("pi")
+        elif char == "e":
+            self.update_display("e")
+        elif char == "^":
+            self.update_display("**")
         else:
             if curr == "0" and char not in "+-*/.":
                 self.display_var.set(char)
@@ -111,7 +127,9 @@ class AdvancedCalculator:
                 "factorial": self.logic.factorial,
                 "logarithm": self.logic.logarithm,
                 "natural_logarithm": self.logic.natural_logarithm,
-                "percent": self.logic.percent
+                "percent": self.logic.percent,
+                "pi": math.pi,
+                "e": math.e
             }
             # Eval to test logic 
             result = eval(expr, {"__builtins__": None}, allowed_names)
@@ -119,7 +137,7 @@ class AdvancedCalculator:
         except Exception as e:
             self.display_var.set(f"Error: {str(e)}")
 
-if __name__ == "main":
-    root = tk.Tk()
-    AdvancedCalculator(root)
-    root.mainloop()
+if __name__ == "__main__":
+    main_window = tk.Tk()
+    AdvancedCalculator(main_window)
+    main_window.mainloop()

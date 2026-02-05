@@ -15,13 +15,17 @@ class CalculatorLogic:
     """
     Addition, subtraction, multiplication and division functions
     """
-    def add(self, a, b):
+    @staticmethod
+    def add(a, b):
         return a + b
-    def subtract(self, a, b):
+    @staticmethod
+    def subtract(a, b):
         return a - b
-    def multiply(self, a, b):
+    @staticmethod
+    def multiply(a, b):
         return a * b
-    def divide(self, a, b):
+    @staticmethod
+    def divide(a, b):
         # Catch division by zero error
         if b == 0:
             raise ValueError("Cannot divide by zero")
@@ -31,30 +35,38 @@ class CalculatorLogic:
     Trigonometric functions
     """
     # The built-in math functions require radians as input
-    def sin_deg(self, angle):
+    @staticmethod
+    def sin_deg(angle):
         return math.sin(math.radians(angle))
-    def cos_deg(self, angle):
+    @staticmethod
+    def cos_deg(angle):
         return math.cos(math.radians(angle))
-    def tan_deg(self, angle):
+    @staticmethod
+    def tan_deg(angle):
         return math.tan(math.radians(angle))
 
 
     """
     Inverse trigonometric functions (returns angles)
     """
-    def arcsin_deg(self, value):
+    @staticmethod
+    def arcsin_deg(value):
         return math.degrees(math.asin(value))
-    def arccos_deg(self, value):
+    @staticmethod
+    def arccos_deg(value):
         return math.degrees(math.acos(value))
-    def arctan_deg(self, value):
+    @staticmethod
+    def arctan_deg(value):
         return math.degrees(math.atan(value))
 
     """
     Exponentiation including the square and the square roots functions
     """
-    def square(self, a):
+    @staticmethod
+    def square(a):
         return a ** 2
-    def sqrt(self, a):
+    @staticmethod
+    def sqrt(a):
         # Negative numbers cannot be square roots
         if a < 0:
             raise ValueError("Invalid Input")
@@ -63,7 +75,8 @@ class CalculatorLogic:
     """
     Factorial function
     """
-    def factorial(self, a):
+    @staticmethod
+    def factorial(a):
         if a < 0:
             raise ValueError("Invalid Input")
         return math.factorial(int(a))
@@ -71,12 +84,14 @@ class CalculatorLogic:
     """
     Logarithmic functions
     """
-    def logarithm(self,a,base):
+    @staticmethod
+    def logarithm(a, base):
         if a < 0 or base < 0:
             raise ValueError("Invalid Input")
         return math.log(a, base)
 
-    def natural_logarithm(self,a):
+    @staticmethod
+    def natural_logarithm(a):
         if a < 0:
             raise ValueError("Invalid Input")
         return math.log(a,math.e)
@@ -84,5 +99,6 @@ class CalculatorLogic:
     """
     Percent function
     """
-    def percent(self,a):
-        return 100 * a / 100
+    @staticmethod
+    def percent(a):
+        return a / 100
