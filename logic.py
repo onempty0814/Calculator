@@ -30,18 +30,12 @@ class CalculatorLogic:
     """
     Trigonometric functions
     """
-    def sin_from_rad(self, angle):
-        return math.sin(angle)
-    def cos_from_rad(self, angle):
-        return math.cos(angle)
-    def tan_from_rad(self, angle):
-        return math.tan(angle)
     # The built-in math functions require radians as input
-    def sin_from_deg(self, angle):
+    def sin_deg(self, angle):
         return math.sin(math.radians(angle))
-    def cos_from_deg(self, angle):
+    def cos_deg(self, angle):
         return math.cos(math.radians(angle))
-    def tan_from_deg(self, angle):
+    def tan_deg(self, angle):
         return math.tan(math.radians(angle))
 
 
